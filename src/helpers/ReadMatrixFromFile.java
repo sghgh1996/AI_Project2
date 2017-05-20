@@ -8,6 +8,7 @@ public class ReadMatrixFromFile {
     private DataInputStream dis;
     private int[][] resultMatrix;
     private String fileName;
+    private int size;
 
     public ReadMatrixFromFile(String file_name) {
         this.fileName = file_name;
@@ -17,7 +18,7 @@ public class ReadMatrixFromFile {
         try{
             dis = new DataInputStream(new FileInputStream(fileName));
 
-            int size = Integer.parseInt(dis.readLine());
+            size = Integer.parseInt(dis.readLine());
             resultMatrix = new int[size][size];
 
             String[] tempt1;
@@ -36,5 +37,9 @@ public class ReadMatrixFromFile {
 
     public int[][] getResultMatrix() {
         return resultMatrix;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
