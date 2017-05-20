@@ -7,6 +7,8 @@ import algorithmes.SimulatedAnnealing;
 
 public class TSP extends Problem<TSPState, TSPAction> {
 
+    private int[] cities;
+
     public TSP() {
 
     }
