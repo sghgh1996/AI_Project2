@@ -12,13 +12,20 @@ public class TSP extends Problem<TSPState, TSPAction> {
 
     private int[] city_map;
     private int[][] map;
-    int map_size;
+    private int map_size;
 
     public TSP() {
         ReadMatrixFromFile reader = new ReadMatrixFromFile("src/TSPMap.txt");
         reader.readMatrix();
         int[][] map = reader.getResultMatrix();
         this.map_size = reader.getSize();
+
+        for(int i = 0; i < map_size; i++){
+            for(int j = 0; j < map_size; j++){
+                System.out.printf("%d  ", map[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     @Override
@@ -28,7 +35,7 @@ public class TSP extends Problem<TSPState, TSPAction> {
             initial_path[i] = i;
         }
         TSPState initial_state = new TSPState(initial_path);
-        return null;
+        return initial_state;
     }
 
     @Override
@@ -66,7 +73,18 @@ public class TSP extends Problem<TSPState, TSPAction> {
     }
 
     public static void main(String[] args) {
+        TSP TSPProblem = new TSP();
 
+        HillClimbing<TSPState, TSPAction> hillClimbing = new HillClimbing<>(TSPProblem);
+
+//        hillClimbing.first_choice();
+         hillClimbing.simple();
+//         hillClimbing.Stochastic();
+//         hillClimbing.random_restart();
+
+//        SimulatedAnnealing<TSPState, TSPAction> simulatedAnnealing;
+//        simulatedAnnealing = new SimulatedAnnealing<>(TSPProblem);
+//        simulatedAnnealing.search(1);// the input value is for choosing the simulatedAnnealing method from 0,1,2
     }
 
     @Override
@@ -78,13 +96,17 @@ public class TSP extends Problem<TSPState, TSPAction> {
 
     @Override
     public double objective_function(TSPState state) {
-        int[] cur_path = state.getPath();
-        int result = 0;
+        if(state != null) {
+            int[] cur_path = state.getPath();
+            int result = 0;
 
-        for(int i = 0; i < map_size - 1; i++){
-            result += map[cur_path[i]][cur_path[i+1]];
+            for (int i = 0; i < cur_path.length - 1; i++) {
+                result += map[cur_path[i]][cur_path[i + 1]];
+            }
+            return result;
+        } else {
+            return 0;
         }
-        return result;
     }
 
     @Override
