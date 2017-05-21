@@ -7,7 +7,7 @@ import Problems.Problem;
 
 public class GeneticAlgorithme<S, A> {
     Problem<S, A> problem;
-    Vector<S> population = new Vector<S>();
+    Vector<S> population = new Vector<>();
     int numberOfPopulation;
     int numberOfGeneration;
     double chanceOfMutation;
